@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour {
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpwan.position, shotSpwan.rotation);
-			GetComponent<AudioSource>().Play ();
+			AudioSource[] audios = GetComponents<AudioSource>();
+			audios[0].Play();
 		}
 
 	}
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical); // do pooruszania statkiem
+		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical); // do poruszania statkiem
 
 		Rigidbody r = GetComponent<Rigidbody>();
 
@@ -49,4 +50,5 @@ public class PlayerController : MonoBehaviour {
 
 		r.rotation = Quaternion.Euler (0.0f, 0.0f, r.velocity.x * -tilt);
 	}
+
 }
