@@ -18,13 +18,12 @@ public class GameController : MonoBehaviour {
 	private bool gameOver;
 	private bool restart;
 	private int score;
-	private bool pauseGame;
+
 
 	void Start()
 	{
 		gameOver = false;
 		restart = false;
-		pauseGame = false;
 		restartText.text = "";
 		gameOverText.text = "";
 		score = 0;
@@ -78,9 +77,6 @@ public class GameController : MonoBehaviour {
 				Application.LoadLevel( Application.loadedLevel);
 			}
 		}
-		if (Input.GetKeyDown (KeyCode.P)) {
-			PauseGame();
-		}
 	}
 
 	public void addScore(int newScoreValue)
@@ -100,14 +96,5 @@ public class GameController : MonoBehaviour {
 		gameOverText.text = "Game Over";
 	}
 
-	public void PauseGame()
-	{
-		pauseGame = !pauseGame;
-		if (pauseGame) { // true, pause game
-			Time.timeScale = 0.0f; 
-		} else {
-			Time.timeScale = 1.0f; 
-		}
 
-	}
 }

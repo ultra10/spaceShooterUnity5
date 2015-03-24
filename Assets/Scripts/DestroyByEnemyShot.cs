@@ -1,13 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class DestroyByContact : MonoBehaviour {
-
-	public GameObject explosion;
+public class DestroyByEnemyShot : MonoBehaviour {
+	
 	public GameObject playerExplosion;
-	public int scoreValue;
 	private GameController gc; // game Controller handler
-
+	
 	void Start(){
 		GameObject gameControllerObj = GameObject.FindWithTag ("GameController");
 		if (gameControllerObj != null) {
@@ -17,7 +15,7 @@ public class DestroyByContact : MonoBehaviour {
 			Debug.Log("Nie działa :(");
 		}
 	}
-
+	
 	/** 
 	 * @param other wzkazuje na obiekt który wywołuje ten skrypt 
 	 */
@@ -26,12 +24,10 @@ public class DestroyByContact : MonoBehaviour {
 			return;
 		}
 
-		Instantiate (explosion, transform.position, transform.rotation);
 		if (other.tag == "Player") {
 			Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
 			gc.GameOver();
 		}
-		gc.addScore (scoreValue);
 		Destroy (other.gameObject);
 		Destroy (gameObject);
 	}
