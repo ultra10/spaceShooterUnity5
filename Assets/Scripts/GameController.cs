@@ -4,6 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 	public GameObject hazard;
+	public GameObject enemyShip;
 	public GameObject bg;
 	public Vector3 spownValues;
 	public int hazardCount;
@@ -39,9 +40,9 @@ public class GameController : MonoBehaviour {
 		float warpIn = 0.1f + Time.time * 0.3f;
 		if (warpIn > 1.0f) {
 			warpIn = 1.0f;
+		} else {
+			bg.GetComponent<Renderer> ().sharedMaterial.mainTextureScale = new Vector2 (1.0f, warpIn);
 		}
-
-		bg.GetComponent<Renderer>().sharedMaterial.mainTextureScale = new Vector2(1.0f, warpIn );
 	}
 
 	IEnumerator spawnWaves()
@@ -56,6 +57,16 @@ public class GameController : MonoBehaviour {
 
 				yield return new WaitForSeconds(spownWait);
 			}
+
+			yield return new WaitForSeconds(1);
+
+			for (int i = 0; i < 2; i++) { // spown enemy
+				Vector3 spownPosition = new Vector3 (Random.Range (-spownValues.x, spownValues.x), spownValues.y, spownValues.z);
+				Instantiate (enemyShip, spownPosition, enemyShip.GetComponent<Transform>().rotation);
+				
+				yield return new WaitForSeconds(spownWait);
+			}
+
 			yield return new WaitForSeconds(waveWait);
 
 			if(gameOver)
